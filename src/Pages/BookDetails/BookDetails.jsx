@@ -1,6 +1,14 @@
 import React from "react";
 import { RiH4 } from "react-icons/ri";
 import { useLoaderData, useParams } from "react-router";
+import { addToStoredDb } from "../../utilities/addToDb";
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+import { ToastContainer, toast } from 'react-toastify';
+
+const MySwal = withReactContent(Swal)
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -20,6 +28,21 @@ const BookDetails = () => {
     publisher,
     yearOfPublishing,
   } = singleBook;
+
+  const handleMarkAsRead = (id) => {
+
+    // MySwal.fire({
+    //   title: "Good job!",
+    //   text: "You clicked the button!",
+    //   icon: "success"
+    // });
+    
+
+    toast("Wow so easy!");
+
+    addToStoredDb(id);
+
+  }
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -50,11 +73,12 @@ const BookDetails = () => {
       <p>Rating: {rating}</p>
       
       <div className="flex gap-5">
-      <button className="btn">Mark as read</button>
+      <button onClick={() => handleMarkAsRead(id)} className="btn">Mark as read</button>
       <button className="btn btn-primary">Add to wishlist</button>
       </div>
     </div>
   </div>
+  <ToastContainer />
 </div>
   );
 };
